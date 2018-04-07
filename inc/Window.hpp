@@ -38,6 +38,8 @@ public:
 
 private:
 	WINDOW			*_win;
+	int 			_wW;
+	int 			_wH;
 	int				_isRunning;
 	int 			_lastInput;
 	int 			_input;

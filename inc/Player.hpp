@@ -19,7 +19,7 @@ public:
 	Player();
 	Player(Player const &p);
 	~Player();
-	void move(int key);
+	void move(int, int, int);
 	Player &operator=(Player const &w);
 };
 

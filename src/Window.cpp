@@ -45,6 +45,7 @@ void	Window::init() {
 	curs_set(false);
 	cbreak();
 	keypad(stdscr, true);
+	timeout(10000);
 	refresh();
 	createWin();
 	this->_input = ERR;
@@ -61,7 +62,10 @@ void	Window::createWin() {
 	struct winsize size;
 	ioctl(0, TIOCGWINSZ, &size);
 	gettimeofday(&this->_tvalBefore, nullptr);
-	this->_win = newwin(size.ws_row - MENU_SIZE, size.ws_col, MENU_SIZE, 0);
+	this->_wW = size.ws_col;
+	this->_wH = size.ws_row - MENU_SIZE;
+	this->_win = newwin(this->_wH, this->_wW, MENU_SIZE, 0);
+	nodelay(this->_win, true);
 	box(this->_win, 0, 0);
 	wrefresh(this->_win);
 }
@@ -74,7 +78,7 @@ void	Window::destroyWin() {
 }
 
 void	Window::updateFrame() {
-	this->_player.move(this->_lastInput);
+	this->_player.move(this->_lastInput, this->_wH, this->_wW);
 }
 
 void	Window::reDraw() const
@@ -90,13 +94,11 @@ void Window::game()
 	while (this->_isRunning)
 	{
 		this->_input = getch();
-		std::cout << "test" << std::endl;
-		if (this->_input == 27)
+		if (this->_input == 'q' || this->_input == 'Q')
 			return ;
 		else if (this->_input != ERR)
 			this->_lastInput = this->_input;
 		gettimeofday(&this->_tvalAfter, nullptr);
-		printw("Code of pressed key is %d\n", this->_input);
 		if (this->frameTime(this->_tvalBefore, this->_tvalAfter) >= 16.6)
 		{
 			this->destroyWin();

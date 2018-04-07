@@ -33,13 +33,15 @@ Player::~Player() {
 
 }
 
-void Player::move(int key) {
-	if (key == KEY_DOWN)
+void Player::move(int key, int winH, int winW) {
+
+	if ((key == KEY_DOWN || key == 's' || key == 'S') && this->_y < winH)
 		this->_y++;
-	else if (key == KEY_UP)
+	else if ((key == KEY_UP || key == 'w' || key == 'W') && this->_y > 3)
 		this->_y--;
-	else if (key == KEY_LEFT)
+
+	if ((key == KEY_LEFT || key == 'a' || key == 'A') && this->_x > 1)
 		this->_x--;
-	else if (key == KEY_RIGHT)
+	else if ((key == KEY_RIGHT || key == 'd' || key == 'D') && this->_x < winW - 2)
 		this->_x++;
 }
