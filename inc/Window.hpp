@@ -18,6 +18,7 @@
 # include <sys/time.h>
 # include <sys/ioctl.h>
 # include "Player.hpp"
+# include "Enemy.hpp"
 
 class Window {
 public:
@@ -32,8 +33,8 @@ public:
 		void			destroyWin();
 		void			game();
 		unsigned int	frameTime(timeval t1, timeval t2);
-		void			reDraw() const;
-		void			updateFrame();
+		void			reDraw(int a, Enemy &b) const;
+		void			updateFrame(int a, Enemy &b);
 
 
 private:

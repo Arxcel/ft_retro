@@ -26,7 +26,7 @@ public:
 	AWinObject(AWinObject const & win);
 	virtual ~AWinObject();
 	AWinObject &operator=(AWinObject const & win);
-	virtual void	move(int, int, int) = 0;
+	virtual void	move(int, int, int, int) = 0;
 	virtual void putInWindow() const;
 protected:
 	int _x;

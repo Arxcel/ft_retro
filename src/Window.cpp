@@ -45,7 +45,7 @@ void	Window::init() {
 	curs_set(false);
 	cbreak();
 	keypad(stdscr, true);
-	timeout(10000);
+	nodelay(stdscr, TRUE);
 	refresh();
 	createWin();
 	this->_input = ERR;
@@ -65,32 +65,34 @@ void	Window::createWin() {
 	this->_wW = size.ws_col;
 	this->_wH = size.ws_row - MENU_SIZE;
 	this->_win = newwin(this->_wH, this->_wW, MENU_SIZE, 0);
-	nodelay(this->_win, true);
-	box(this->_win, 0, 0);
 	wrefresh(this->_win);
 }
 
 void	Window::destroyWin() {
-	wrefresh(this->_win);
 	clear();
-	refresh();
+	wrefresh(this->_win);
 	delwin(this->_win);
 }
 
-void	Window::updateFrame() {
-	this->_player.move(this->_lastInput, this->_wH, this->_wW);
+void	Window::updateFrame(int a, Enemy &b) {
+	this->_player.move(this->_lastInput, this->_wH, this->_wW, this->_frameCounter);
+	if (a)
+		b.move(0,this->_wH, this->_wW, this->_frameCounter);
 }
 
-void	Window::reDraw() const
+void	Window::reDraw(int a, Enemy &b) const
 {
 	this->_player.putInWindow();
+	if (a)
+		b.putInWindow();
 }
 
 
 
 void Window::game()
 {
-	this->reDraw();
+	Enemy *e = nullptr;
+	int f = 0;
 	while (this->_isRunning)
 	{
 		this->_input = getch();
@@ -99,12 +101,17 @@ void Window::game()
 		else if (this->_input != ERR)
 			this->_lastInput = this->_input;
 		gettimeofday(&this->_tvalAfter, nullptr);
-		if (this->frameTime(this->_tvalBefore, this->_tvalAfter) >= 16.6)
+		if (this->frameTime(this->_tvalBefore, this->_tvalAfter) >= 60000)
 		{
 			this->destroyWin();
 			this->createWin();
-			this->updateFrame();
-			this->reDraw();
+			if (_frameCounter == 5)
+			{
+				e = new Enemy(this->_wH, this->_wW);
+				f = 1;
+			}
+			this->updateFrame(f, *e);
+			this->reDraw(f, *e);
 			this->_tvalBefore = this->_tvalAfter;
 			this->_frameCounter++;
 			this->_lastInput = ERR;

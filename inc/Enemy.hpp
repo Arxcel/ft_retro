@@ -12,9 +12,18 @@
 
 #ifndef ENEMY_HPP
 # define ENEMY_HPP
+#include "AWinObject.hpp"
 
-class Enemy {
+class Enemy: public virtual AWinObject {
+public:
+	Enemy(Enemy const &p);
+	Enemy(int, int);
+	~Enemy();
+	void move(int, int, int, int);
+	Enemy &operator=(Enemy const &w);
 
+private:
+	Enemy();
 };
 
 

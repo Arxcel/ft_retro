@@ -19,7 +19,8 @@ HEADERS =-I$(I_DIR)
 SOURCES =   main.cpp \
             Window.cpp \
             AWinObject.cpp \
-            Player.cpp
+            Player.cpp \
+            Enemy.cpp
 
 SRCS = $(addprefix $(S_DIR)/,$(SOURCES))
 

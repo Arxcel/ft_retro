@@ -33,8 +33,9 @@ Player::~Player() {
 
 }
 
-void Player::move(int key, int winH, int winW) {
+void Player::move(int key, int winH, int winW, int frameCount) {
 
+	(void)frameCount;
 	if ((key == KEY_DOWN || key == 's' || key == 'S') && this->_y < winH)
 		this->_y++;
 	else if ((key == KEY_UP || key == 'w' || key == 'W') && this->_y > 3)
