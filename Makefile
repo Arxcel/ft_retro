@@ -16,7 +16,8 @@ EXT =
 
 HEADERS =-I$(I_DIR)
 
-SOURCES =   main.cpp
+SOURCES =   main.cpp \
+            Window.cpp
 
 SRCS = $(addprefix $(S_DIR)/,$(SOURCES))
 
@@ -25,7 +26,7 @@ OBJS = $(addprefix $(O_DIR)/,$(SOURCES:.cpp=.o))
 all: obj $(NAME)
 
 $(NAME): $(OBJS) $(EXTENSIONS)
-		$(CC) -o $(NAME) $(OBJS) $(FLAGS) $(HEADERS)
+		$(CC) -o $(NAME) $(OBJS) $(FLAGS) $(HEADERS) -lncurses
 
 obj:
 	mkdir -p obj

@@ -1,6 +1,12 @@
-#include <iostream>
+#include "Window.hpp"
 
 int main() {
-	std::cout << "Hello, World!" << std::endl;
-	return 0;
+	Window win;
+	bool i;
+
+	i = true;
+	while (i)
+	{
+
+	}
 }
