@@ -13,9 +13,8 @@
 #ifndef WINDOW_HPP
 # define WINDOW_HPP
 # define MENU_SIZE 2
-#include <ncurses.h>
-#include <iostream>
-
+# include <ncurses.h>
+# include <iostream>
 class Window {
 public:
 
@@ -24,14 +23,20 @@ public:
 		~Window();
 
 		Window &operator=(Window const &w);
-		void	init();
-		void	createWin();
-		void	destroyWin();
-		WINDOW &getWin() const;
+		void			init();
+		void			createWin();
+		void			destroyWin();
+		WINDOW			&getWin() const;
+		void			game();
+		unsigned int	frame(timeval t1, timeval t2);
 
-private:
+
+		private:
 	WINDOW			*_win;
-//	int 			_input;
+	int				_isRunning;
+	int 			_lastInput;
+	int 			_input;
+
 };
 
 

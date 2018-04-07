@@ -5,8 +5,5 @@ int main() {
 	bool i;
 
 	i = true;
-	while (i)
-	{
-
-	}
+	win.game();
 }

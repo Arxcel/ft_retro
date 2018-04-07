@@ -13,15 +13,11 @@
 #include "Window.hpp"
 #include <sys/ioctl.h>
 
-Window::Window()
-{
-
+Window::Window() {
 	init();
 }
 
-Window::Window(Window const & src)
-{
-
+Window::Window(Window const & src) {
 	init();
 	*this = src;
 }
@@ -44,12 +40,17 @@ Window::~Window() {
 void	Window::init() {
 
 	initscr();
-	noecho();
+//	noecho();
 	curs_set(false);
 	cbreak();
 	keypad(stdscr, true);
 	refresh();
 	createWin();
+}
+
+unsigned int    Window::frame(timeval t1, timeval t2) {
+
+	return (unsigned int)((t2.tv_sec * 1000000 + t2.tv_usec) - (t1.tv_sec * 1000000 + t1.tv_usec));
 }
 
 void	Window::createWin() {
@@ -59,6 +60,10 @@ void	Window::createWin() {
 	this->_win = newwin(size.ws_row - MENU_SIZE, size.ws_col, MENU_SIZE, 0);
 	box(this->_win, 0, 0);
 	wrefresh(this->_win);
+	this->_isRunning = true;
+	this->_input = -1;
+	this->_lastInput = -1;
+
 }
 
 void	Window::destroyWin() {
@@ -73,7 +78,16 @@ WINDOW &Window::getWin() const
 	return *this->_win;
 }
 
-//void Window::game()
-//{
-//	this->_input = getch();
-//}
+void Window::game()
+{
+
+	while (this->_isRunning)
+	{
+		this->_input = getch();
+//		std::cout << this->_input << std::endl;
+		if (this->_input == 27)
+			this->_isRunning = false;
+		else if (this->_input != -1)
+			this->_lastInput = this->_input;
+	}
+}

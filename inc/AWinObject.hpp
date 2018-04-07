@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   IWinObject.hpp                                     :+:      :+:    :+:   */
+/*   AWinObject.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkozlov <vkozlov@student.unit.ua>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,12 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef IWINOBJECT_HPP
-# define IWINOBJECT_HPP
+#ifndef AWINOBJECT_HPP
+# define AWINOBJECT_HPP
 
-class IWinObject {
+#include "Window.hpp"
 
+class AWinObject {
+
+public:
+	int getX() const;
+	int getY() const;
+	char getForm() const;
+	AWinObject(void);
+	AWinObject(int x, int y);
+	AWinObject(AWinObject const & win);
+	virtual ~AWinObject() {};
+	AWinObject &operator=(AWinObject const & win);
+	virtual bool	move( int ) = 0;
+	virtual void putInWindow() const;
+protected:
+	int _x;
+	int _y;
+	char _form;
 };
 
 
-#endif //RUSH00_IWINOBJECT_HPP
+#endif //RUSH00_AWINOBJECT_HPP
