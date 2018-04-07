@@ -15,6 +15,10 @@
 # define MENU_SIZE 2
 # include <ncurses.h>
 # include <iostream>
+# include <sys/time.h>
+# include <sys/ioctl.h>
+# include "Player.hpp"
+
 class Window {
 public:
 
@@ -26,16 +30,21 @@ public:
 		void			init();
 		void			createWin();
 		void			destroyWin();
-		WINDOW			&getWin() const;
 		void			game();
-		unsigned int	frame(timeval t1, timeval t2);
+		unsigned int	frameTime(timeval t1, timeval t2);
+		void			reDraw() const;
+		void			updateFrame();
 
 
-		private:
+private:
 	WINDOW			*_win;
 	int				_isRunning;
 	int 			_lastInput;
 	int 			_input;
+	struct timeval	_tvalBefore;
+	struct timeval	_tvalAfter;
+	Player			_player;
+	int				_frameCounter;
 
 };
 

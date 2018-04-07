@@ -12,26 +12,26 @@
 
 #ifndef AWINOBJECT_HPP
 # define AWINOBJECT_HPP
-
-#include "Window.hpp"
+# include <ncurses.h>
+# include <string>
 
 class AWinObject {
 
 public:
 	int getX() const;
 	int getY() const;
-	char getForm() const;
-	AWinObject(void);
+	std::string getForm() const;
+	AWinObject();
 	AWinObject(int x, int y);
 	AWinObject(AWinObject const & win);
-	virtual ~AWinObject() {};
+	virtual ~AWinObject();
 	AWinObject &operator=(AWinObject const & win);
-	virtual bool	move( int ) = 0;
+	virtual void	move(int) = 0;
 	virtual void putInWindow() const;
 protected:
 	int _x;
 	int _y;
-	char _form;
+	std::string _form;
 };
 
 

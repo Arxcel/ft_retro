@@ -12,11 +12,11 @@
 
 #include "AWinObject.hpp"
 
-AWinObject::AWinObject() : _x(5), _y(5), _form(' ') {
+AWinObject::AWinObject() : _x(5), _y(5), _form(" ") {
 
 }
 
-AWinObject::AWinObject(int x, int y) : _x(x), _y(y),  _form(' ') {
+AWinObject::AWinObject(int x, int y) : _x(x), _y(y),  _form(" ") {
 
 }
 
@@ -24,7 +24,9 @@ AWinObject::AWinObject(AWinObject const & src) : _x(src._x), _y(src._y), _form(s
 
 }
 
-//AWinObject::~AWinObject() {}
+AWinObject::~AWinObject() {
+
+}
 
 int AWinObject::getX() const {
 	return this->_x;
@@ -34,7 +36,7 @@ int AWinObject::getY() const {
 	return this->_y;
 }
 
-char AWinObject::getForm() const {
+std::string AWinObject::getForm() const {
 	return this->_form;
 }
 
@@ -48,6 +50,6 @@ AWinObject &AWinObject::operator=(AWinObject const & rhs) {
 	return *this;
 }
 
-void AWinObject::putInWindow() const{
-	mvprintw(this->_y, this->_x, &this->_form);
+void AWinObject::putInWindow() const {
+	mvprintw(this->_y, this->_x, this->_form.c_str());
 }

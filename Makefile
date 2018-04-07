@@ -17,7 +17,9 @@ EXT =
 HEADERS =-I$(I_DIR)
 
 SOURCES =   main.cpp \
-            Window.cpp
+            Window.cpp \
+            AWinObject.cpp \
+            Player.cpp
 
 SRCS = $(addprefix $(S_DIR)/,$(SOURCES))
 

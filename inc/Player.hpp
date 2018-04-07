@@ -12,9 +12,15 @@
 
 #ifndef PLAYER_HPP
 # define PLAYER_HPP
+#include "AWinObject.hpp"
 
-class Player {
-
+class Player : public AWinObject {
+public:
+	Player();
+	Player(Player const &p);
+	~Player();
+	void move(int key);
+	Player &operator=(Player const &w);
 };
 
 

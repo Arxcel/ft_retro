@@ -10,7 +10,36 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PLAYER_H
-# define PLAYER_H
+#include "Player.hpp"
 
-#endif
+Player::Player() {
+	this->_form = "}";
+}
+
+Player::Player(Player const & src) {
+	*this = src;
+}
+
+Player &Player::operator=(Player const & rhs) {
+
+	if (this != &rhs)
+	{
+		this->_form = rhs.getForm();
+	}
+	return *this;
+}
+
+Player::~Player() {
+
+}
+
+void Player::move(int key) {
+	if (key == KEY_DOWN)
+		this->_y++;
+	else if (key == KEY_UP)
+		this->_y--;
+	else if (key == KEY_LEFT)
+		this->_x--;
+	else if (key == KEY_RIGHT)
+		this->_x++;
+}
