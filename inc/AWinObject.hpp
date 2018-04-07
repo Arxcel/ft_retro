@@ -20,6 +20,8 @@ class AWinObject {
 public:
 	int getX() const;
 	int getY() const;
+	void setX(int);
+	void setY(int);
 	std::string getForm() const;
 	AWinObject();
 	AWinObject(int x, int y);

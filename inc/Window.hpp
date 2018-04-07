@@ -12,13 +12,18 @@
 
 #ifndef WINDOW_HPP
 # define WINDOW_HPP
-# define MENU_SIZE 2
 # include <ncurses.h>
 # include <iostream>
 # include <sys/time.h>
 # include <sys/ioctl.h>
 # include "Player.hpp"
 # include "Enemy.hpp"
+# include "Background.hpp"
+# include "Bullet.hpp"
+# define MENU_SIZE 2
+# define ENEMY_NUM 500
+# define BULLET_NUM 500
+# define BACKGROUND_NUM 500
 
 class Window {
 public:
@@ -33,12 +38,16 @@ public:
 		void			destroyWin();
 		void			game();
 		unsigned int	frameTime(timeval t1, timeval t2);
-		void			reDraw(int a, Enemy &b) const;
-		void			updateFrame(int a, Enemy &b);
-
+		void			reDraw() const;
+		void			updateFrame();
+		void			generateEnemy();
+		void			generateBackground();
+		void			generateBullet();
+		void			checkCollision();
 
 private:
 	WINDOW			*_win;
+	int				_score;
 	int 			_wW;
 	int 			_wH;
 	int				_isRunning;
@@ -46,9 +55,15 @@ private:
 	int 			_input;
 	struct timeval	_tvalBefore;
 	struct timeval	_tvalAfter;
+	struct timeval	_baseTime;
 	Player			_player;
 	int				_frameCounter;
-
+	Background		*_stars;
+	Enemy 			*_enemies;
+	Bullet 			*_bullets;
+	static int		_countEnemy;
+	static int		_countBackground;
+	static int		_countBullet;
 };
 
 

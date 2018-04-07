@@ -2,7 +2,7 @@ CC = clang++
 
 NAME = ft_retro
 
-FLAGS = -std=c++98 -Wall -Wextra -Werror
+FLAGS = -std=c++98 -Wall -Wextra -Werror # -fsanitize=address
 
 I_DIR = ./inc
 
@@ -20,7 +20,10 @@ SOURCES =   main.cpp \
             Window.cpp \
             AWinObject.cpp \
             Player.cpp \
-            Enemy.cpp
+            Enemy.cpp \
+            Background.cpp \
+            Bullet.cpp
+
 
 SRCS = $(addprefix $(S_DIR)/,$(SOURCES))
 

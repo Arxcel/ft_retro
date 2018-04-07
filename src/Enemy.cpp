@@ -12,13 +12,11 @@
 
 #include "Enemy.hpp"
 
-Enemy::Enemy() {
-}
+std::string darkForces[10] = {"H", "D", "B"};
 
-Enemy::Enemy(int winH, int winW) {
-	this->_form = "H";
-	this->_y = (unsigned int)(clock() % (winH - 1));
-	this->_x = winW - 1;
+Enemy::Enemy() {
+	this->_isVisible = false;
+	this->_form = darkForces[clock() % 5];
 }
 
 Enemy::Enemy(Enemy const & src) {
@@ -38,11 +36,44 @@ Enemy::~Enemy() {
 
 }
 
-void Enemy::move(int key, int winH, int winW, int frameCount) {
+bool Enemy::getIsVisible() const{
+	return this->_isVisible;
+}
+
+void Enemy::setIsVisible(bool b)
+{
+	this->_isVisible = b;
+}
+
+void Enemy::die()
+{
+	this->_isVisible = false;
+}
+
+void Enemy::putInWindow() const {
+	if (this->_form == "H") {
+		attron(COLOR_PAIR(1));
+		mvprintw(this->_y, this->_x, this->_form.c_str());
+		attroff(COLOR_PAIR(1));
+	}
+	else if (this->_form == "D") {
+		attron(COLOR_PAIR(3));
+		mvprintw(this->_y, this->_x, this->_form.c_str());
+		attroff(COLOR_PAIR(3));
+	}
+	else if (this->_form == "B") {
+		attron(COLOR_PAIR(4));
+		mvprintw(this->_y, this->_x, this->_form.c_str());
+		attroff(COLOR_PAIR(4));
+	}
+}
+
+void Enemy::move(int key, int winH, int winW, int frameCounter) {
 	(void)key;
 	(void)winH;
 	(void)winW;
-	(void)frameCount;
-	if (frameCount % 20)
+	if(frameCounter % 3 == 0)
 		this->_x--;
+	if (this->_x < 0)
+		this->_isVisible = false;
 }

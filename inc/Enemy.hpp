@@ -15,16 +15,19 @@
 #include "AWinObject.hpp"
 
 class Enemy: public virtual AWinObject {
+
 public:
 	Enemy(Enemy const &p);
-	Enemy(int, int);
+	Enemy();
 	~Enemy();
 	void move(int, int, int, int);
 	Enemy &operator=(Enemy const &w);
-
+	bool getIsVisible() const;
+	void setIsVisible(bool);
+	void putInWindow() const;
+		void die();
 private:
-	Enemy();
+	bool _isVisible;
 };
-
 
 #endif //RUSH00_ENEMY_HPP

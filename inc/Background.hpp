@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bullet.hpp                                         :+:      :+:    :+:   */
+/*   Background.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkozlov <vkozlov@student.unit.ua>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/07 10:33:00 by vkozlov           #+#    #+#             */
-/*   Updated: 2018/04/07 10:33:00 by vkozlov          ###   ########.fr       */
+/*   Created: 2018/04/07 20:55:00 by vkozlov           #+#    #+#             */
+/*   Updated: 2018/04/07 20:55:00 by vkozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BULLET_HPP
-# define BULLET_HPP
-# include "AWinObject.hpp"
+#ifndef BACKGROUND_H
+# define BACKGROUND_H
+#include "AWinObject.hpp"
 
-class Bullet : public virtual AWinObject {
-	
-	public:
-		Bullet(Bullet const &p);
-		Bullet();
-		~Bullet();
-		void move(int, int, int, int);
-		Bullet &operator=(Bullet const &w);
-		bool getIsVisible() const;
-		void setIsVisible(bool);
-		void putInWindow() const;
-//		void die();
-	private:
-		bool _isVisible;
+class Background: public virtual AWinObject {
+
+public:
+	Background(Background const &p);
+	Background();
+	~Background();
+	void move(int, int, int, int);
+	Background &operator=(Background const &w);
+	bool getIsVisible() const;
+	void setIsVisible(bool);
+private:
+	bool _isVisible;
 };
 
-
-#endif //RUSH00_BULLET_HPP
+#endif

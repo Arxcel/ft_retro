@@ -36,6 +36,16 @@ int AWinObject::getY() const {
 	return this->_y;
 }
 
+void AWinObject::setX(int x){
+	this->_x = x;
+}
+
+void AWinObject::setY(int y){
+	if (y < 3)
+		y = 3;
+	this->_y = y;
+}
+
 std::string AWinObject::getForm() const {
 	return this->_form;
 }

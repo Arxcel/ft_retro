@@ -21,6 +21,7 @@ public:
 	~Player();
 	void move(int, int, int, int);
 	Player &operator=(Player const &w);
+	void putInWindow() const;
 };
 
 
