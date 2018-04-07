@@ -14,6 +14,7 @@
 
 Player::Player() {
 	this->_form = "}";
+	this->_hP = 5;
 }
 
 Player::Player(Player const & src) {
@@ -36,6 +37,14 @@ void Player::putInWindow() const {
 	attron(COLOR_PAIR(2));
 	mvprintw(this->_y, this->_x, this->_form.c_str());
 	attroff(COLOR_PAIR(2));
+}
+
+int Player::getHp() const {
+	return this->_hP;
+}
+
+void  Player::setHp(int newHp)  {
+	this->_hP = newHp;
 }
 
 void Player::move(int key, int winH, int winW, int frameCounter) {

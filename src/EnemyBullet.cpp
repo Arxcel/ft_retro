@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bullet.cpp                                         :+:      :+:    :+:   */
+/*   EnemyBullet.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkozlov <vkozlov@student.unit.ua>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,18 +10,18 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bullet.hpp"
+#include "EnemyBullet.hpp"
 
-Bullet::Bullet() {
+EnemyBullet::EnemyBullet() {
 	this->_isVisible = false;
-	this->_form = "-";
+	this->_form = "*";
 }
 
-Bullet::Bullet(Bullet const & src) {
+EnemyBullet::EnemyBullet(EnemyBullet const & src) {
 	*this = src;
 }
 
-Bullet &Bullet::operator=(Bullet const & rhs) {
+EnemyBullet &EnemyBullet::operator=(EnemyBullet const & rhs) {
 
 	if (this != &rhs)
 	{
@@ -30,31 +30,32 @@ Bullet &Bullet::operator=(Bullet const & rhs) {
 	return *this;
 }
 
-Bullet::~Bullet() {
+EnemyBullet::~EnemyBullet() {
 
 }
 
-bool Bullet::getIsVisible() const{
+bool EnemyBullet::getIsVisible() const{
 	return this->_isVisible;
 }
 
-void Bullet::setIsVisible(bool b)
+void EnemyBullet::setIsVisible(bool b)
 {
 	this->_isVisible = b;
 }
 
-void Bullet::putInWindow() const {
-	attron(COLOR_PAIR(2));
+void EnemyBullet::putInWindow() const {
+	attron(COLOR_PAIR(1));
 	mvprintw(this->_y, this->_x, this->_form.c_str());
-	attroff(COLOR_PAIR(2));
+	attroff(COLOR_PAIR(1));
 
 }
 
-void Bullet::move(int key, int winH, int winW, int frameCounter) {
+void EnemyBullet::move(int key, int winH, int winW, int frameCounter) {
 	(void)key;
 	(void)winH;
+	(void)winW;
 	if(frameCounter % 1 == 0)
-		this->_x++;
-	if (this->_x > winW)
+		this->_x--;
+	if (this->_x < 0)
 		this->_isVisible = false;
 }

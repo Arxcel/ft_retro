@@ -20,10 +20,13 @@
 # include "Enemy.hpp"
 # include "Background.hpp"
 # include "Bullet.hpp"
+# include "EnemyBullet.hpp"
+
 # define MENU_SIZE 2
-# define ENEMY_NUM 500
-# define BULLET_NUM 500
+# define ENEMY_NUM 100
+# define BULLET_NUM 50
 # define BACKGROUND_NUM 500
+# define ENEMY_BULLET_NUM 50
 
 class Window {
 public:
@@ -32,7 +35,7 @@ public:
 		Window(Window const &w);
 		~Window();
 
-		Window &operator=(Window const &w);
+		Window			&operator=(Window const &w);
 		void			init();
 		void			createWin();
 		void			destroyWin();
@@ -43,27 +46,33 @@ public:
 		void			generateEnemy();
 		void			generateBackground();
 		void			generateBullet();
+		void			generateEnemyBullet(Enemy const &e);
 		void			checkCollision();
+		void			checkPlayerShot();
+		void			checkEnemyBulletCollision();
 
 private:
-	WINDOW			*_win;
-	int				_score;
-	int 			_wW;
-	int 			_wH;
-	int				_isRunning;
-	int 			_lastInput;
-	int 			_input;
-	struct timeval	_tvalBefore;
-	struct timeval	_tvalAfter;
-	struct timeval	_baseTime;
-	Player			_player;
-	int				_frameCounter;
-	Background		*_stars;
-	Enemy 			*_enemies;
-	Bullet 			*_bullets;
-	static int		_countEnemy;
-	static int		_countBackground;
-	static int		_countBullet;
+		WINDOW			*_win;
+		int				_score;
+		int 			_wW;
+		int 			_wH;
+		int				_isRunning;
+		int 			_lastInput;
+		int 			_input;
+		struct timeval	_tvalBefore;
+		struct timeval	_tvalAfter;
+		struct timeval	_baseTime;
+		Player			_player;
+		int				_frameCounter;
+		Background		*_stars;
+		Enemy 			*_enemies;
+		Bullet 			*_bullets;
+		EnemyBullet 	*_enemyBullets;
+
+		static int		_countEnemy;
+		static int		_countBackground;
+		static int		_countBullet;
+		static int		_countEnemyBullet;
 };
 
 

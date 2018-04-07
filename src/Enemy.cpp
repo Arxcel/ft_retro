@@ -73,7 +73,16 @@ void Enemy::move(int key, int winH, int winW, int frameCounter) {
 	(void)winH;
 	(void)winW;
 	if(frameCounter % 3 == 0)
-		this->_x--;
+	{
+		if (this->_form == "H") {
+			this->_x--;
+			this->_y += clock() % 2 ? 1 : (-1);
+		} else {
+			this->_x--;
+		}
+
+
+	}
 	if (this->_x < 0)
 		this->_isVisible = false;
 }

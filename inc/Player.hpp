@@ -22,6 +22,10 @@ public:
 	void move(int, int, int, int);
 	Player &operator=(Player const &w);
 	void putInWindow() const;
+	int getHp() const;
+	void  			setHp(int newHp);
+private:
+	int _hP;
 };
 
 

@@ -12,7 +12,13 @@ O_DIR = obj
 
 EXTENSIONS = $(addprefix $(I_DIR)/,$(EXT))
 
-EXT =
+EXT = Window.hpp \
+      AWinObject.hpp \
+      Player.hpp \
+      Enemy.hpp \
+      Background.hpp \
+      Bullet.hpp \
+      EnemyBullet.hpp
 
 HEADERS =-I$(I_DIR)
 
@@ -22,7 +28,8 @@ SOURCES =   main.cpp \
             Player.cpp \
             Enemy.cpp \
             Background.cpp \
-            Bullet.cpp
+            Bullet.cpp \
+            EnemyBullet.cpp
 
 
 SRCS = $(addprefix $(S_DIR)/,$(SOURCES))
