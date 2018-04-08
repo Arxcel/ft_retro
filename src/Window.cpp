@@ -6,7 +6,7 @@
 /*   By: vkozlov <vkozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 09:29:00 by vkozlov           #+#    #+#             */
-/*   Updated: 2018/04/08 11:54:09 by vkozlov          ###   ########.fr       */
+/*   Updated: 2018/04/08 12:03:16 by vkozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,11 +178,11 @@ void	Window::updateFrame() {
 
 void	Window::reDraw() const
 {
-	mvprintw((int)(this->_wH * 0.02), (int)(this->_wW * 0.02), "SCORE ");
-	mvprintw((int)(this->_wH * 0.02), (int)(this->_wW * 0.12), "%d", this->_score);
+	mvprintw(2, (int)(this->_wW * 0.02), "SCORE ");
+	mvprintw(2, (int)(this->_wW * 0.12), "%d", this->_score);
 
-	mvprintw((int)(this->_wH * 0.02), (int)(this->_wW * 0.90), "%d", this->_player.getHp());
-	mvprintw((int)(this->_wH * 0.02), (int)(this->_wW * 0.85), "LIFE");
+	mvprintw(2, (int)(this->_wW * 0.90), "%d", this->_player.getHp());
+	mvprintw(2, (int)(this->_wW * 0.85), "LIFE");
 	for (int i = 0; i < BACKGROUND_NUM; i++) {
 		if (this->_stars[i].getIsVisible()){
 			this->_stars[i].putInWindow();
