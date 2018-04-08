@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Window.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkozlov <vkozlov@student.unit.ua>          +#+  +:+       +#+        */
+/*   By: vkozlov <vkozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 09:29:00 by vkozlov           #+#    #+#             */
-/*   Updated: 2018/04/07 09:29:00 by vkozlov          ###   ########.fr       */
+/*   Updated: 2018/04/08 11:54:09 by vkozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void	Window::checkPlayerShot()
 					this->_enemies[j].setIsVisible(false);
 					this->_bullets[i].setIsVisible(false);
 					if (this->_enemies[j].getForm() == "H")
+						this->_score += 500;
+					else if(this->_enemies[j].getForm() == "D")
 						this->_score += 100;
 					else
 						this->_score += 10;
@@ -213,6 +215,7 @@ void			Window::generateEnemy()
 		this->_enemies[_countEnemy % ENEMY_NUM].setIsVisible(true);
 		this->_enemies[_countEnemy % ENEMY_NUM].setX(this->_wW);
 		this->_enemies[_countEnemy % ENEMY_NUM].setY((unsigned int)(clock() % (this->_wH)));
+		this->_enemies[_countEnemy % ENEMY_NUM]._isForward = this->_enemies[_countEnemy % ENEMY_NUM].getY() < this->_wH / 2;
 	}
 }
 

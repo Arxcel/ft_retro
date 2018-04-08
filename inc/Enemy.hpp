@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Enemy.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkozlov <vkozlov@student.unit.ua>          +#+  +:+       +#+        */
+/*   By: vkozlov <vkozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 10:30:00 by vkozlov           #+#    #+#             */
-/*   Updated: 2018/04/07 10:30:00 by vkozlov          ###   ########.fr       */
+/*   Updated: 2018/04/08 11:48:03 by vkozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ public:
 	Enemy &operator=(Enemy const &w);
 	bool getIsVisible() const;
 	void setIsVisible(bool);
+	bool _isForward;
 	void putInWindow() const;
-		void die();
 private:
 	bool _isVisible;
 };

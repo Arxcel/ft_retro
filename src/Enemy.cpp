@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Enemy.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkozlov <vkozlov@student.unit.ua>          +#+  +:+       +#+        */
+/*   By: vkozlov <vkozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 10:30:00 by vkozlov           #+#    #+#             */
-/*   Updated: 2018/04/07 10:30:00 by vkozlov          ###   ########.fr       */
+/*   Updated: 2018/04/08 11:51:23 by vkozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ std::string darkForces[3] = {"H", "D", "B"};
 
 Enemy::Enemy() {
 	this->_isVisible = false;
+	this->_isForward = false;
 	this->_form = darkForces[clock() % 3];
 }
 
@@ -45,11 +46,6 @@ void Enemy::setIsVisible(bool b)
 	this->_isVisible = b;
 }
 
-void Enemy::die()
-{
-	this->_isVisible = false;
-}
-
 void Enemy::putInWindow() const {
 	if (this->_form == "H") {
 		attron(COLOR_PAIR(1));
@@ -75,13 +71,16 @@ void Enemy::move(int key, int winH, int winW, int frameCounter) {
 	if(frameCounter % 3 == 0)
 	{
 		if (this->_form == "H") {
-			this->_x--;
 			this->_y += clock() % 2 ? 1 : (-1);
-		} else {
-			this->_x--;
+		} else if (this->_form == "D"){
+			if (this->_isForward)
+				this->_y++;
+			else
+				this->_y--;
+			if (this->_y < 0 || this->_y > winH)
+				this->_isForward = !this->_isForward;
 		}
-
-
+			this->_x--;
 	}
 	if (this->_x < 0)
 		this->_isVisible = false;
