@@ -16,6 +16,7 @@ int Window::_countEnemy = 0;
 int Window::_countBackground = 0;
 int Window::_countBullet = 0;
 int Window::_countEnemyBullet = 0;
+
 Window::Window() {
 	this->_enemies = new Enemy[ENEMY_NUM];
 	this->_stars = new Background[BACKGROUND_NUM];
@@ -260,7 +261,7 @@ void Window::game()
 		else if (this->_input != ERR)
 			this->_lastInput = this->_input;
 		gettimeofday(&this->_tvalAfter, nullptr);
-		if (this->frameTime(this->_tvalBefore, this->_tvalAfter) >= 60000)
+		if (this->frameTime(this->_tvalBefore, this->_tvalAfter) >= 40000)
 		{
 			this->destroyWin();
 			this->createWin();

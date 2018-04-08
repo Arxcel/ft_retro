@@ -12,11 +12,11 @@
 
 #include "Enemy.hpp"
 
-std::string darkForces[10] = {"H", "D", "B"};
+std::string darkForces[3] = {"H", "D", "B"};
 
 Enemy::Enemy() {
 	this->_isVisible = false;
-	this->_form = darkForces[clock() % 5];
+	this->_form = darkForces[clock() % 3];
 }
 
 Enemy::Enemy(Enemy const & src) {
