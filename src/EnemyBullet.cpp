@@ -14,7 +14,7 @@
 
 EnemyBullet::EnemyBullet() {
 	this->_isVisible = false;
-	this->_form = "*";
+	this->_form = "<-";
 }
 
 EnemyBullet::EnemyBullet(EnemyBullet const & src) {

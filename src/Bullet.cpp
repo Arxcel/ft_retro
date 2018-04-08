@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Bullet.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkozlov <vkozlov@student.unit.ua>          +#+  +:+       +#+        */
+/*   By: vkozlov <vkozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 10:33:00 by vkozlov           #+#    #+#             */
-/*   Updated: 2018/04/07 10:33:00 by vkozlov          ###   ########.fr       */
+/*   Updated: 2018/04/08 12:42:31 by vkozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 Bullet::Bullet() {
 	this->_isVisible = false;
-	this->_form = "-";
+	this->_form = "->";
 }
 
 Bullet::Bullet(Bullet const & src) {
