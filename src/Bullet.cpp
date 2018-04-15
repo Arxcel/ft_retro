@@ -6,15 +6,15 @@
 /*   By: vkozlov <vkozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 10:33:00 by vkozlov           #+#    #+#             */
-/*   Updated: 2018/04/08 12:42:31 by vkozlov          ###   ########.fr       */
+/*   Updated: 2018/04/15 14:09:18 by vkozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bullet.hpp"
 
 Bullet::Bullet() {
-	this->_isVisible = false;
-	this->_form = "->";
+	_isVisible = false;
+	_form = "->";
 }
 
 Bullet::Bullet(Bullet const & src) {
@@ -25,7 +25,7 @@ Bullet &Bullet::operator=(Bullet const & rhs) {
 
 	if (this != &rhs)
 	{
-		this->_form = rhs.getForm();
+		_form = rhs.getForm();
 	}
 	return *this;
 }
@@ -35,17 +35,17 @@ Bullet::~Bullet() {
 }
 
 bool Bullet::getIsVisible() const{
-	return this->_isVisible;
+	return _isVisible;
 }
 
 void Bullet::setIsVisible(bool b)
 {
-	this->_isVisible = b;
+	_isVisible = b;
 }
 
 void Bullet::putInWindow() const {
 	attron(COLOR_PAIR(2));
-	mvprintw(this->_y, this->_x, this->_form.c_str());
+	mvprintw(_y, _x, _form.c_str());
 	attroff(COLOR_PAIR(2));
 
 }
@@ -54,7 +54,7 @@ void Bullet::move(int key, int winH, int winW, int frameCounter) {
 	(void)key;
 	(void)winH;
 	if(frameCounter % 1 == 0)
-		this->_x++;
-	if (this->_x > winW)
-		this->_isVisible = false;
+		_x++;
+	if (_x > winW)
+		_isVisible = false;
 }

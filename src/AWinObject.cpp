@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AWinObject.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkozlov <vkozlov@student.unit.ua>          +#+  +:+       +#+        */
+/*   By: vkozlov <vkozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 10:30:00 by vkozlov           #+#    #+#             */
-/*   Updated: 2018/04/07 10:30:00 by vkozlov          ###   ########.fr       */
+/*   Updated: 2018/04/15 14:09:18 by vkozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,37 +29,37 @@ AWinObject::~AWinObject() {
 }
 
 int AWinObject::getX() const {
-	return this->_x;
+	return _x;
 }
 
 int AWinObject::getY() const {
-	return this->_y;
+	return _y;
 }
 
 void AWinObject::setX(int x){
-	this->_x = x;
+	_x = x;
 }
 
 void AWinObject::setY(int y){
 	if (y < 3)
 		y = 3;
-	this->_y = y;
+	_y = y;
 }
 
 std::string AWinObject::getForm() const {
-	return this->_form;
+	return _form;
 }
 
 AWinObject &AWinObject::operator=(AWinObject const & rhs) {
 
 	if (this != &rhs) {
-		this->_form = rhs.getForm();
-		this->_x = rhs.getX();
-		this->_y = rhs.getY();
+		_form = rhs.getForm();
+		_x = rhs.getX();
+		_y = rhs.getY();
 	}
 	return *this;
 }
 
 void AWinObject::putInWindow() const {
-	mvprintw(this->_y, this->_x, this->_form.c_str());
+	mvprintw(_y, _x, _form.c_str());
 }

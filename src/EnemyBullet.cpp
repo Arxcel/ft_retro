@@ -13,8 +13,8 @@
 #include "EnemyBullet.hpp"
 
 EnemyBullet::EnemyBullet() {
-	this->_isVisible = false;
-	this->_form = "<-";
+	_isVisible = false;
+	_form = "<-";
 }
 
 EnemyBullet::EnemyBullet(EnemyBullet const & src) {
@@ -25,7 +25,7 @@ EnemyBullet &EnemyBullet::operator=(EnemyBullet const & rhs) {
 
 	if (this != &rhs)
 	{
-		this->_form = rhs.getForm();
+		_form = rhs.getForm();
 	}
 	return *this;
 }
@@ -35,17 +35,17 @@ EnemyBullet::~EnemyBullet() {
 }
 
 bool EnemyBullet::getIsVisible() const{
-	return this->_isVisible;
+	return _isVisible;
 }
 
 void EnemyBullet::setIsVisible(bool b)
 {
-	this->_isVisible = b;
+	_isVisible = b;
 }
 
 void EnemyBullet::putInWindow() const {
 	attron(COLOR_PAIR(1));
-	mvprintw(this->_y, this->_x, this->_form.c_str());
+	mvprintw(_y, _x, _form.c_str());
 	attroff(COLOR_PAIR(1));
 
 }
@@ -55,7 +55,7 @@ void EnemyBullet::move(int key, int winH, int winW, int frameCounter) {
 	(void)winH;
 	(void)winW;
 	if(frameCounter % 1 == 0)
-		this->_x--;
-	if (this->_x < 0)
-		this->_isVisible = false;
+		_x--;
+	if (_x < 0)
+		_isVisible = false;
 }

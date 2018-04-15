@@ -6,7 +6,7 @@
 /*   By: vkozlov <vkozlov@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/07 09:29:00 by vkozlov           #+#    #+#             */
-/*   Updated: 2018/04/08 12:03:16 by vkozlov          ###   ########.fr       */
+/*   Updated: 2018/04/15 14:09:53 by vkozlov          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ int Window::_countBullet = 0;
 int Window::_countEnemyBullet = 0;
 
 Window::Window() {
-	this->_enemies = new Enemy[ENEMY_NUM];
-	this->_stars = new Background[BACKGROUND_NUM];
-	this->_bullets = new Bullet[BULLET_NUM];
-	this->_enemyBullets = new EnemyBullet[ENEMY_BULLET_NUM];
-	this->_frameCounter = 0;
-	this->_score = 0;
+	_enemies = new Enemy[ENEMY_NUM];
+	_stars = new Background[BACKGROUND_NUM];
+	_bullets = new Bullet[BULLET_NUM];
+	_enemyBullets = new EnemyBullet[ENEMY_BULLET_NUM];
+	_frameCounter = 0;
+	_score = 0;
 	init();
 }
 
 Window::Window(Window const & src) {
-	this->_frameCounter = 0;
+	_frameCounter = 0;
 	init();
 	*this = src;
 }
@@ -45,10 +45,10 @@ Window &Window::operator=(Window const & rhs) {
 Window::~Window() {
 	destroyWin();
 	endwin();
-	delete[] this->_enemies;
-	delete[] this->_stars;
-	delete[] this->_bullets;
-	delete[] this->_enemyBullets;
+	delete[] _enemies;
+	delete[] _stars;
+	delete[] _bullets;
+	delete[] _enemyBullets;
 	std::cout << "\\=== GAME OVER ===/" << std::endl;
 }
 
@@ -70,10 +70,10 @@ void	Window::init() {
 	init_pair(4, COLOR_MAGENTA, COLOR_BLACK);
 
 	createWin();
-	this->_input = ERR;
-	this->_lastInput = ERR;
-	this->_isRunning = true;
-	gettimeofday(&this->_baseTime, nullptr);
+	_input = ERR;
+	_lastInput = ERR;
+	_isRunning = true;
+	gettimeofday(&_baseTime, nullptr);
 }
 
 unsigned int    Window::frameTime(struct timeval t1, struct timeval t2) {
@@ -84,26 +84,26 @@ void	Window::createWin() {
 
 	struct winsize size;
 	ioctl(0, TIOCGWINSZ, &size);
-	gettimeofday(&this->_tvalBefore, nullptr);
-	this->_wW = size.ws_col;
-	this->_wH = size.ws_row - MENU_SIZE;
-	this->_win = newwin(this->_wH, this->_wW, MENU_SIZE, 0);
-	wrefresh(this->_win);
+	gettimeofday(&_tvalBefore, nullptr);
+	_wW = size.ws_col;
+	_wH = size.ws_row - MENU_SIZE;
+	_win = newwin(_wH, _wW, MENU_SIZE, 0);
+	wrefresh(_win);
 }
 
 void	Window::destroyWin() {
-	clear();
-	wrefresh(this->_win);
-	delwin(this->_win);
+	erase();
+	wrefresh(_win);
+	delwin(_win);
 }
 
 void	Window::checkCollision()
 {
 	for (int i = 0; i < ENEMY_NUM; i++) {
-		if (this->_enemies[i].getIsVisible()
-			&& this->_player.getY() == this->_enemies[i].getY()
-			&& this->_player.getX() == this->_enemies[i].getX()){
-			this->_isRunning = false;
+		if (_enemies[i].getIsVisible()
+			&& _player.getY() == _enemies[i].getY()
+			&& _player.getX() == _enemies[i].getX()){
+			_isRunning = false;
 		}
 	}
 }
@@ -112,18 +112,18 @@ void	Window::checkPlayerShot()
 {
 	for (int i = 0; i < BULLET_NUM; i++) {
 		for (int j = 0; j < ENEMY_NUM; j++) {
-			if (this->_enemies[j].getIsVisible() && this->_bullets[i].getIsVisible())
+			if (_enemies[j].getIsVisible() && _bullets[i].getIsVisible())
 			{
-				if (this->_bullets[i].getX() == this->_enemies[j].getX() && this->_bullets[i].getY() == this->_enemies[j].getY())
+				if (_bullets[i].getX() == _enemies[j].getX() && _bullets[i].getY() == _enemies[j].getY())
 				{
-					this->_enemies[j].setIsVisible(false);
-					this->_bullets[i].setIsVisible(false);
-					if (this->_enemies[j].getForm() == "H")
-						this->_score += 500;
-					else if(this->_enemies[j].getForm() == "D")
-						this->_score += 100;
+					_enemies[j].setIsVisible(false);
+					_bullets[i].setIsVisible(false);
+					if (_enemies[j].getForm() == "H")
+						_score += 500;
+					else if(_enemies[j].getForm() == "D")
+						_score += 100;
 					else
-						this->_score += 10;
+						_score += 10;
 				}
 			}
 		}
@@ -133,75 +133,75 @@ void	Window::checkPlayerShot()
 void	Window::checkEnemyBulletCollision()
 {
 	for (int i = 0; i < ENEMY_BULLET_NUM; i++) {
-		if (this->_enemyBullets[i].getIsVisible()
-			&& this->_player.getY() == this->_enemyBullets[i].getY()
-			&& this->_player.getX() == this->_enemyBullets[i].getX()){
-			this->_player.setHp(this->_player.getHp() - 1);
-			this->_enemyBullets[i].setIsVisible(false);
-			if (!this->_player.getHp())
-				this->_isRunning = false;
+		if (_enemyBullets[i].getIsVisible()
+			&& _player.getY() == _enemyBullets[i].getY()
+			&& _player.getX() == _enemyBullets[i].getX()){
+			_player.setHp(_player.getHp() - 1);
+			_enemyBullets[i].setIsVisible(false);
+			if (!_player.getHp())
+				_isRunning = false;
 		}
 	}
 }
 
 void	Window::updateFrame() {
-	this->_player.move(this->_lastInput, this->_wH, this->_wW, this->_frameCounter);
-	this->checkEnemyBulletCollision();
-	this->checkCollision();
+	_player.move(_lastInput, _wH, _wW, _frameCounter);
+	checkEnemyBulletCollision();
+	checkCollision();
 	for (int i = 0; i < BACKGROUND_NUM; i++) {
-		if (this->_stars[i].getIsVisible()){
-			this->_stars[i].move(0, this->_wH, this->_wW, this->_frameCounter);
+		if (_stars[i].getIsVisible()){
+			_stars[i].move(0, _wH, _wW, _frameCounter);
 		}
 	}
 	for (int i = 0; i < ENEMY_NUM; i++) {
-		if (this->_enemies[i].getIsVisible()){
-			this->_enemies[i].move(0, this->_wH, this->_wW, this->_frameCounter);
-			this->checkPlayerShot();
-			if (this->_frameCounter % 21 == 0)
-				generateEnemyBullet(this->_enemies[i]);
+		if (_enemies[i].getIsVisible()){
+			_enemies[i].move(0, _wH, _wW, _frameCounter);
+			checkPlayerShot();
+			if (_frameCounter % 21 == 0)
+				generateEnemyBullet(_enemies[i]);
 		}
 	}
-	this->checkCollision();
+	checkCollision();
 	for (int i = 0; i < BULLET_NUM; i++) {
-		if (this->_bullets[i].getIsVisible()){
-			this->_bullets[i].move(0, this->_wH, this->_wW, this->_frameCounter);
+		if (_bullets[i].getIsVisible()){
+			_bullets[i].move(0, _wH, _wW, _frameCounter);
 		}
 	}
-	this->checkPlayerShot();
+	checkPlayerShot();
 	for (int i = 0; i < ENEMY_BULLET_NUM; i++) {
-		if (this->_enemyBullets[i].getIsVisible()){
-			this->_enemyBullets[i].move(0, this->_wH, this->_wW, this->_frameCounter);
+		if (_enemyBullets[i].getIsVisible()){
+			_enemyBullets[i].move(0, _wH, _wW, _frameCounter);
 		}
 	}
-	this->checkEnemyBulletCollision();
+	checkEnemyBulletCollision();
 }
 
 void	Window::reDraw() const
 {
-	mvprintw(2, (int)(this->_wW * 0.02), "SCORE ");
-	mvprintw(2, (int)(this->_wW * 0.12), "%d", this->_score);
+	mvprintw(2, (int)(_wW * 0.02), "SCORE ");
+	mvprintw(2, (int)(_wW * 0.12), "%d", _score);
 
-	mvprintw(2, (int)(this->_wW * 0.90), "%d", this->_player.getHp());
-	mvprintw(2, (int)(this->_wW * 0.85), "LIFE");
+	mvprintw(2, (int)(_wW * 0.90), "%d", _player.getHp());
+	mvprintw(2, (int)(_wW * 0.85), "LIFE");
 	for (int i = 0; i < BACKGROUND_NUM; i++) {
-		if (this->_stars[i].getIsVisible()){
-			this->_stars[i].putInWindow();
+		if (_stars[i].getIsVisible()){
+			_stars[i].putInWindow();
 		}
 	}
 	for (int i = 0; i < ENEMY_NUM; i++) {
-		if (this->_enemies[i].getIsVisible()){
-			this->_enemies[i].putInWindow();
+		if (_enemies[i].getIsVisible()){
+			_enemies[i].putInWindow();
 		}
 	}
-	this->_player.putInWindow();
+	_player.putInWindow();
 	for (int i = 0; i < BULLET_NUM; i++) {
-		if (this->_bullets[i].getIsVisible()){
-			this->_bullets[i].putInWindow();
+		if (_bullets[i].getIsVisible()){
+			_bullets[i].putInWindow();
 		}
 	}
 	for (int i = 0; i < ENEMY_BULLET_NUM; i++) {
-		if (this->_enemyBullets[i].getIsVisible()){
-			this->_enemyBullets[i].putInWindow();
+		if (_enemyBullets[i].getIsVisible()){
+			_enemyBullets[i].putInWindow();
 		}
 	}
 }
@@ -209,35 +209,35 @@ void	Window::reDraw() const
 void			Window::generateEnemy()
 {
 	_countEnemy++;
-	if (!this->_enemies[_countEnemy % ENEMY_NUM].getIsVisible() &&
-			!(this->frameTime(this->_baseTime, this->_tvalAfter) % clock() % 10))
+	if (!_enemies[_countEnemy % ENEMY_NUM].getIsVisible() &&
+			!(frameTime(_baseTime, _tvalAfter) % clock() % 10))
 	{
-		this->_enemies[_countEnemy % ENEMY_NUM].setIsVisible(true);
-		this->_enemies[_countEnemy % ENEMY_NUM].setX(this->_wW);
-		this->_enemies[_countEnemy % ENEMY_NUM].setY((unsigned int)(clock() % (this->_wH)));
-		this->_enemies[_countEnemy % ENEMY_NUM]._isForward = this->_enemies[_countEnemy % ENEMY_NUM].getY() < this->_wH / 2;
+		_enemies[_countEnemy % ENEMY_NUM].setIsVisible(true);
+		_enemies[_countEnemy % ENEMY_NUM].setX(_wW);
+		_enemies[_countEnemy % ENEMY_NUM].setY((unsigned int)(clock() % (_wH)));
+		_enemies[_countEnemy % ENEMY_NUM]._isForward = _enemies[_countEnemy % ENEMY_NUM].getY() < _wH / 2;
 	}
 }
 
 void			Window::generateBackground()
 {
 	_countBackground++;
-	if (!this->_stars[_countBackground % BACKGROUND_NUM].getIsVisible())
+	if (!_stars[_countBackground % BACKGROUND_NUM].getIsVisible())
 	{
-		this->_stars[_countBackground % BACKGROUND_NUM].setIsVisible(true);
-		this->_stars[_countBackground % BACKGROUND_NUM].setX(this->_wW);
-		this->_stars[_countBackground % BACKGROUND_NUM].setY((unsigned int)(clock() % (this->_wH)));
+		_stars[_countBackground % BACKGROUND_NUM].setIsVisible(true);
+		_stars[_countBackground % BACKGROUND_NUM].setX(_wW);
+		_stars[_countBackground % BACKGROUND_NUM].setY((unsigned int)(clock() % (_wH)));
 	}
 }
 
 void			Window::generateBullet()
 {
 	_countBullet++;
-	if (!this->_bullets[_countBullet % BULLET_NUM].getIsVisible())
+	if (!_bullets[_countBullet % BULLET_NUM].getIsVisible())
 	{
-		this->_bullets[_countBullet % BULLET_NUM].setIsVisible(true);
-		this->_bullets[_countBullet % BULLET_NUM].setX(this->_player.getX() + 1);
-		this->_bullets[_countBullet % BULLET_NUM].setY(this->_player.getY());
+		_bullets[_countBullet % BULLET_NUM].setIsVisible(true);
+		_bullets[_countBullet % BULLET_NUM].setX(_player.getX() + 1);
+		_bullets[_countBullet % BULLET_NUM].setY(_player.getY());
 	}
 }
 void			Window::generateEnemyBullet(Enemy const &e)
@@ -245,38 +245,38 @@ void			Window::generateEnemyBullet(Enemy const &e)
 	if (clock() % 13 == 0 && e.getIsVisible())
 	{
 		_countEnemyBullet++;
-		if (!this->_enemyBullets[_countEnemyBullet % ENEMY_BULLET_NUM].getIsVisible())
+		if (!_enemyBullets[_countEnemyBullet % ENEMY_BULLET_NUM].getIsVisible())
 		{
-			this->_enemyBullets[_countEnemyBullet % ENEMY_BULLET_NUM].setIsVisible(true);
-			this->_enemyBullets[_countEnemyBullet % ENEMY_BULLET_NUM].setX(e.getX() - 1);
-			this->_enemyBullets[_countEnemyBullet % ENEMY_BULLET_NUM].setY(e.getY());
+			_enemyBullets[_countEnemyBullet % ENEMY_BULLET_NUM].setIsVisible(true);
+			_enemyBullets[_countEnemyBullet % ENEMY_BULLET_NUM].setX(e.getX() - 1);
+			_enemyBullets[_countEnemyBullet % ENEMY_BULLET_NUM].setY(e.getY());
 		}
 	}
 }
 
 void Window::game()
 {
-	while (this->_isRunning)
+	while (_isRunning)
 	{
-		this->_input = getch();
-		if (this->_input == 'q' || this->_input == 'Q')
+		_input = getch();
+		if (_input == 'q' || _input == 'Q')
 			return ;
-		else if (this->_input != ERR)
-			this->_lastInput = this->_input;
-		gettimeofday(&this->_tvalAfter, nullptr);
-		if (this->frameTime(this->_tvalBefore, this->_tvalAfter) >= 40000)
+		else if (_input != ERR)
+			_lastInput = _input;
+		gettimeofday(&_tvalAfter, nullptr);
+		if (frameTime(_tvalBefore, _tvalAfter) >= 40000)
 		{
-			this->destroyWin();
-			this->createWin();
-			this->generateBackground();
-			this->generateEnemy();
-			if (this->_lastInput == ' ')
-				this->generateBullet();
-			this->updateFrame();
-			this->reDraw();
-			this->_tvalBefore = this->_tvalAfter;
-			this->_frameCounter++;
-			this->_lastInput = ERR;
+			destroyWin();
+			createWin();
+			generateBackground();
+			generateEnemy();
+			if (_lastInput == ' ')
+				generateBullet();
+			updateFrame();
+			reDraw();
+			_tvalBefore = _tvalAfter;
+			_frameCounter++;
+			_lastInput = ERR;
 		}
 	}
 }
