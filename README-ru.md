@@ -16,7 +16,7 @@ Mac OS El Capitan / Sierra / High Sierra
 ## Установка
 
 ```bash
-git clone https://github.com/Arxcel/ft_retro.git ~/RT
+git clone https://github.com/Arxcel/ft_retro.git ~/ft_retro
 cd ~/ft_retro
 make
 ```
